@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile & Fly | Osobisty Doradca Podróży Radom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'] 
+                    },
+                    colors: { 
+                        'brand-green': '#284635', // Butelkowa zieleń
+                        'brand-light': '#F5F2EB', // Elegancki beż/krem
+                        'brand-gold': '#C5A880',  // Stonowane złoto
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-brand-title { font-family: 'Playfair Display', serif; }
+        .fade-in-up { animation: fadeInUp 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .plane-path {
+            position: absolute; width: 150px; height: 150px;
+            border: 2px dashed rgba(197, 168, 128, 0.3);
+            border-radius: 50%; border-left-color: transparent; border-bottom-color: transparent;
+            transform: rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-brand-light pb-20 md:pb-0">
+
+    <nav class="bg-brand-green/95 backdrop-blur-md fixed w-full top-0 z-50 border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 text-white">
+                <i class="fa-solid fa-plane-departure text-brand-gold text-xl"></i>
+                <div class="flex flex-col">
+                    <span class="font-brand-title italic text-2xl tracking-wider leading-none">Smile & Fly</span>
+                    <span class="text-[0.6rem] uppercase tracking-[0.2em] text-brand-gold mt-1">Travel Concierge</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/90 uppercase tracking-widest">
+                <a href="#zespol" class="hover:text-brand-gold transition">Nasz Zespół</a>
+                <a href="#kierunki" class="hover:text-brand-gold transition">Inspiracje</a>
+                <a href="#vouchery" class="hover:text-brand-gold transition">Vouchery</a>
+                <a href="#kontakt" class="hover:text-brand-gold transition">Kontakt</a>
+            </div>
+            <a href="tel:+48883130936" class="hidden md:inline-block bg-transparent border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-green px-6 py-2.5 rounded-sm text-sm uppercase tracking-widest transition duration-300">
+                883 130 936
+            </a>
+        </div>
+    </nav>
+
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Luksusowy resort nad morzem" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-brand-green/50 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-green via-transparent to-transparent opacity-90"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto fade-in-up mt-20">
+            <span class="block text-brand-gold uppercase tracking-[0.3em] text-sm mb-6 font-semibold">Osobisty doradca podróży</span>
+            <h1 class="font-brand-title text-5xl md:text-7xl text-white leading-tight mb-8">
+                Luksus bez ostentacji.<br>
+                <span class="italic font-light">Tu zaczynają się wspomnienia.</span>
+            </h1>
+            <p class="text-white/90 text-lg md:text-xl mb-12 font-light max-w-2xl mx-auto leading-relaxed">
+                Wierzymy w jedną zasadę: wakacje mają być dopasowane do człowieka, nie do katalogu. Planujemy podróże świadomie, spokojnie i z uśmiechem.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#kontakt" class="bg-brand-gold hover:bg-white text-brand-green px-8 py-4 rounded-sm text-sm uppercase tracking-widest font-semibold transition duration-300">
+                    Zaprojektuj z nami urlop
+                </a>
+            </div>
+        </div>
+        
+        <a href="#zespol" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 hover:text-brand-gold transition animate-bounce z-10">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </a>
+    </header>
+
+    <section id="zespol" class="py-24 bg-white relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Smile & Fly to ludzie</span>
+                <h2 class="font-brand-title text-4xl md:text-5xl text-brand-green mb-6">Poznaj Twój duet doradców</h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
+                <p class="mt-6 text-brand-green/70 max-w-2xl mx-auto">Łączymy wieloletnie doświadczenie ze świeżym spojrzeniem. Słuchamy, doradzamy bez presji, za to z ogromnym sercem do podróży.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-brand-light shadow-xl group-hover:border-brand-gold transition duration-500">
+                        <img src="zdjecie1.jpg" alt="Edyta - Założycielka" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-brand-title text-2xl text-brand-green mb-1">Edyta</h3>
+                    <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold mb-4 block">Założycielka</span>
+                    <p class="text-brand-green/70 text-sm leading-relaxed">Od lat w turystyce, z setkami zaplanowanych wyjazdów i jedną twardą zasadą: idealny urlop to spokój w głowie już na etapie planowania. Zna kierunki, hotele i niuanse ofert od podszewki.</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-brand-light shadow-xl group-hover:border-brand-gold transition duration-500">
+                        <img src="zdjecie2.jpg" alt="Piotrek - Doradca" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-brand-title text-2xl text-brand-green mb-1">Piotrek</h3>
+                    <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold mb-4 block">Świeża energia</span>
+                    <p class="text-brand-green/70 text-sm leading-relaxed">Zna różne typy hoteli - od rodzinnych resortów po spokojne miejsca na reset (m.in. Turcja, Egipt, Grecja). Słucha, dopytuje i naprawdę chce dobrze doradzić - bez presji, za to z sercem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kierunki" class="py-24 bg-brand-light relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Nasze inspiracje</span>
+                <h2 class="font-brand-title text-4xl md:text-5xl text-brand-green mb-6">Są miejsca, które <br><span class="italic">nie próbują imponować.</span></h2>
+                <div class="w-16 h-0.5 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1544085311-11a028465b03?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Turcja Premium" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="text-brand-gold text-xs uppercase tracking-[0.2em] mb-2 block"><i class="fa-solid fa-location-dot mr-2"></i>Riwiera Turecka</span>
+                        <h3 class="font-brand-title text-3xl text-white mb-3">Turcja w wydaniu <br>ultra-premium</h3>
+                        <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">Maxx Royal czy Cullinan Belek. Prywatny świat z restauracjami à la carte i serwisem, który wyprzedza Twoje potrzeby.</p>
+                    </div>
+                </div>
+
+                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Egipt" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="text-brand-gold text-xs uppercase tracking-[0.2em] mb-2 block"><i class="fa-solid fa-location-dot mr-2"></i>Morze Czerwone</span>
+                        <h3 class="font-brand-title text-3xl text-white mb-3">Egipt, którego <br>jeszcze nie znasz</h3>
+                        <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">Zapomnij o zatłoczonych hotelach. Odkryj z nami butikową stronę wypoczynku i idealne warunki do nurkowania.</p>
+                    </div>
+                </div>
+
+                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Egzotyka" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <span class="text-brand-gold text-xs uppercase tracking-[0.2em] mb-2 block"><i class="fa-solid fa-location-dot mr-2"></i>Daleki Świat</span>
+                        <h3 class="font-brand-title text-3xl text-white mb-3">Oddech na końcu <br>świata</h3>
+                        <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">Cisza, przestrzeń i prywatność dla tych, którzy cenią jakość ponad ilość w najdalszych zakątkach globu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vouchery" class="py-0 bg-brand-green flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 p-12 md:p-24 text-center md:text-left">
+            <div class="plane-path hidden md:block opacity-20 -mt-10 -ml-10"></div>
+            <span class="text-brand-gold uppercase tracking-[0.2em] text-xs font-bold mb-4 block relative z-10">Prezent idealny</span>
+            <h2 class="font-brand-title text-4xl md:text-5xl text-white mb-6 relative z-10">Podaruj emocje. <br><span class="italic text-brand-light">Zapakowane w zieleń.</span></h2>
+            <p class="text-brand-light/80 text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto md:mx-0 relative z-10">
+                Szukasz wyjątkowego prezentu ślubnego, rocznicowego lub biznesowego? Nasze ekskluzywne, ręcznie pakowane vouchery z eleganckimi zawieszkami to bilet do najpiękniejszych zakątków świata. 
+            </p>
+            <a href="#kontakt" class="inline-block border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-green px-8 py-3 rounded-sm text-sm uppercase tracking-widest transition duration-300 relative z-10">
+                Zamów Voucher
+            </a>
+        </div>
+        <div class="md:w-1/2 min-h-[400px] md:h-[700px] w-full relative">
+            <img src="voucher.jpg" alt="Elegancki prezent" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-brand-green/20"></div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-24 bg-brand-light relative">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <i class="fa-regular fa-paper-plane text-4xl text-brand-gold mb-6 block"></i>
+            <h2 class="font-brand-title text-4xl md:text-5xl text-brand-green mb-6">Zaprojektuj z nami swój urlop</h2>
+            <p class="text-brand-green/70 mb-12 max-w-2xl mx-auto">Zostaw nam wiadomość i określ swoje oczekiwania. Od lotu, przez transfer, aż po najlepszy stolik na kolację w resorcie – my zajmiemy się resztą.</p>
+            
+            <div class="bg-white p-8 md:p-14 rounded-sm shadow-xl border-t-4 border-brand-green text-left">
+                <div class="grid lg:grid-cols-12 gap-12">
+                    
+                    <div class="lg:col-span-4">
+                        <h4 class="font-bold uppercase tracking-widest text-sm text-brand-green mb-6">Biuro Podróży Smile & Fly</h4>
+                        <div class="space-y-6 text-brand-green/80">
+                            <div class="flex items-start gap-4">
+                                <i class="fa-solid fa-location-dot text-xl text-brand-gold w-6 mt-1"></i>
+                                <span>ul. Dębowa 54 lok. U1<br>26-600 Radom</span>
+                            </div>
+                            <a href="mailto:biuro@smileandfly.pl" class="flex items-center gap-4 hover:text-brand-gold transition">
+                                <i class="fa-regular fa-envelope text-xl text-brand-gold w-6"></i> biuro@smileandfly.pl
+                            </a>
+                            <div class="flex items-start gap-4">
+                                <i class="fa-solid fa-phone-flip text-xl text-brand-gold w-6 mt-1"></i>
+                                <div class="flex flex-col gap-1">
+                                    <a href="tel:+48883130936" class="hover:text-brand-gold transition">883 130 936 (Edyta)</a>
+                                    <a href="tel:+48883130930" class="hover:text-brand-gold transition">883 130 930 (Piotrek)</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold uppercase tracking-widest text-sm text-brand-green mt-10 mb-6">Social Media</h4>
+                        <div class="flex gap-4">
+                            <a href="https://www.instagram.com/smileandfly_pl/" target="_blank" class="w-12 h-12 rounded-full border border-brand-green/20 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition">
+                                <i class="fa-brands fa-instagram text-xl"></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61585983702552" target="_blank" class="w-12 h-12 rounded-full border border-brand-green/20 flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition">
+                                <i class="fa-brands fa-facebook-f text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8">
+                        <h4 class="font-bold uppercase tracking-widest text-sm text-brand-green mb-6">Wypełnij brief podróżny</h4>
+                        <form class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" placeholder="Imię i nazwisko" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                                <input type="tel" placeholder="Numer telefonu" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            </div>
+                            <input type="email" placeholder="Adres e-mail" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <input type="text" placeholder="Kierunek (np. Egipt)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                                <input type="text" placeholder="Kiedy? (np. wrzesień)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                                <input type="text" placeholder="Ile osób? (np. 2 dorosłe)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <select class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
+                                    <option value="" disabled selected>Budżet (na osobę)</option>
+                                    <option value="do-3000">do 3 000 PLN</option>
+                                    <option value="3000-5000">3 000 - 5 000 PLN</option>
+                                    <option value="5000-8000">5 000 - 8 000 PLN</option>
+                                    <option value="powyzej-8000">powyżej 8 000 PLN (Premium)</option>
+                                </select>
+                                <select class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
+                                    <option value="" disabled selected>Dokumenty podróży</option>
+                                    <option value="dowod">Tylko Dowód Osobisty</option>
+                                    <option value="paszport">Ważny Paszport (min. 6 msc)</option>
+                                    <option value="w-trakcie">Wyrabiam / Czekam</option>
+                                </select>
+                            </div>
+
+                            <textarea placeholder="Dodatkowe życzenia (np. pokój z widokiem na morze, dieta wege, cichy hotel tylko dla dorosłych)..." rows="3" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm"></textarea>
+
+                            <button type="button" class="w-full bg-brand-green text-white py-4 mt-2 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300">Wyślij brief podróżny</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-green text-white/50 py-8 text-center text-xs tracking-widest uppercase border-t border-white/5">
+        <p>&copy; 2026 Smile & Fly - Travel Concierge. Wszystkie prawa zastrzeżone.</p>
+    </footer>
+
+    <div class="fixed bottom-0 left-0 w-full p-4 bg-brand-light/95 backdrop-blur-md shadow-[0_-5px_20px_rgba(0,0,0,0.05)] md:hidden z-50 border-t border-brand-green/10 flex justify-between items-center">
+        <div class="pl-2">
+            <p class="text-[0.6rem] font-bold text-brand-green uppercase tracking-wider">Osobisty doradca</p>
+            <p class="font-semibold text-brand-green text-sm">Zadzwoń do nas</p>
+        </div>
+        <a href="tel:+48883130936" class="bg-brand-green text-white px-6 py-3 rounded-sm text-xs font-bold uppercase tracking-widest shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-phone"></i> Zadzwoń
+        </a>
+    </div>
+
+</body>
+</html>
