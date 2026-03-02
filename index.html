@@ -8,18 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
+<script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { 
+                        // Playfair zostawiamy jako świetny, darmowy zamiennik ich płatnego fontu "Editor's Note"
                         serif: ['Playfair Display', 'serif'],
                         sans: ['Montserrat', 'sans-serif'] 
                     },
                     colors: { 
-                        'brand-green': '#284635', // Butelkowa zieleń
-                        'brand-light': '#F5F2EB', // Elegancki beż/krem
-                        'brand-gold': '#C5A880',  // Stonowane złoto
+                        'brand-green': '#236344', // Oficjalna zieleń
+                        'brand-light': '#E8D9C4', // Oficjalny beż
+                        'brand-gold': '#EBC78A',  // Oficjalne złoto
                     }
                 }
             }
@@ -39,24 +40,32 @@
 </head>
 <body class="font-sans text-gray-800 antialiased bg-brand-light pb-20 md:pb-0">
 
-    <nav class="bg-brand-green/95 backdrop-blur-md fixed w-full top-0 z-50 border-b border-white/10 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2 text-white">
-                <i class="fa-solid fa-plane-departure text-brand-gold text-xl"></i>
-                <div class="flex flex-col">
-                    <span class="font-brand-title italic text-2xl tracking-wider leading-none">Smile & Fly</span>
-                    <span class="text-[0.6rem] uppercase tracking-[0.2em] text-brand-gold mt-1">Travel Concierge</span>
-                </div>
-            </div>
+<nav class="bg-brand-green/95 backdrop-blur-md fixed w-full top-0 z-50 border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-3 md:py-4 flex justify-between items-center">
+            
+            <a href="#" class="block w-32 md:w-40 flex items-center shrink-0 transition-transform hover:scale-105 duration-300">
+                <img src="smilefly_logo_wersja2_white_rgb.png" alt="Smile & Fly Logo" class="w-full h-auto object-contain drop-shadow-sm">
+            </a>
+
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/90 uppercase tracking-widest">
                 <a href="#zespol" class="hover:text-brand-gold transition">Nasz Zespół</a>
                 <a href="#kierunki" class="hover:text-brand-gold transition">Inspiracje</a>
                 <a href="#vouchery" class="hover:text-brand-gold transition">Vouchery</a>
                 <a href="#kontakt" class="hover:text-brand-gold transition">Kontakt</a>
             </div>
-            <a href="tel:+48883130936" class="hidden md:inline-block bg-transparent border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-green px-6 py-2.5 rounded-sm text-sm uppercase tracking-widest transition duration-300">
-                883 130 936
-            </a>
+            
+            <div class="hidden md:flex items-center gap-3 shrink-0">
+                <a href="https://www.instagram.com/smileandfly_pl/" target="_blank" class="w-9 h-9 rounded-full border border-brand-gold text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-brand-green transition duration-300">
+                    <i class="fa-brands fa-instagram text-sm"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61585983702552" target="_blank" class="w-9 h-9 rounded-full border border-brand-gold text-brand-gold flex items-center justify-center hover:bg-brand-gold hover:text-brand-green transition duration-300">
+                    <i class="fa-brands fa-facebook-f text-sm"></i>
+                </a>
+                <a href="tel:+48883130936" class="ml-2 bg-transparent border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-green px-5 py-2 rounded-sm text-sm uppercase tracking-widest transition duration-300">
+                    883 130 936
+                </a>
+            </div>
+
         </div>
     </nav>
 
@@ -119,7 +128,7 @@
         </div>
     </section>
 
-    <section id="kierunki" class="py-24 bg-brand-light relative">
+<section id="kierunki" class="py-24 bg-brand-light relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Nasze inspiracje</span>
@@ -128,8 +137,9 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1544085311-11a028465b03?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Turcja Premium" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                
+                <div onclick="openKierunek('modal-turcja')" class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1570799088236-903069fde316?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Turcja Premium" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <span class="text-brand-gold text-xs uppercase tracking-[0.2em] mb-2 block"><i class="fa-solid fa-location-dot mr-2"></i>Riwiera Turecka</span>
@@ -138,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                <div onclick="openKierunek('modal-egipt')" class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Egipt" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -148,7 +158,7 @@
                     </div>
                 </div>
 
-                <div class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
+                <div onclick="openKierunek('modal-egzotyka')" class="group relative h-[500px] overflow-hidden rounded-sm shadow-xl cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Egzotyka" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-brand-green/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -157,6 +167,7 @@
                         <p class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">Cisza, przestrzeń i prywatność dla tych, którzy cenią jakość ponad ilość w najdalszych zakątkach globu.</p>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -198,11 +209,23 @@
                             <a href="mailto:biuro@smileandfly.pl" class="flex items-center gap-4 hover:text-brand-gold transition">
                                 <i class="fa-regular fa-envelope text-xl text-brand-gold w-6"></i> biuro@smileandfly.pl
                             </a>
-                            <div class="flex items-start gap-4">
+<div class="flex items-start gap-4">
                                 <i class="fa-solid fa-phone-flip text-xl text-brand-gold w-6 mt-1"></i>
-                                <div class="flex flex-col gap-1">
-                                    <a href="tel:+48883130936" class="hover:text-brand-gold transition">883 130 936 (Edyta)</a>
-                                    <a href="tel:+48883130930" class="hover:text-brand-gold transition">883 130 930 (Piotrek)</a>
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex items-center gap-2">
+                                        <a href="tel:+48883130936" class="hover:text-brand-gold transition font-medium">883 130 936</a>
+                                        <span class="text-xs uppercase tracking-widest text-brand-green/50">(Edyta)</span>
+                                        <a href="https://wa.me/48883130936" target="_blank" class="text-[#25D366] hover:text-brand-gold transition duration-300 ml-1" title="Napisz do Edyty na WhatsApp">
+                                            <i class="fa-brands fa-whatsapp text-xl hover:scale-110 transform transition"></i>
+                                        </a>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a href="tel:+48883130930" class="hover:text-brand-gold transition font-medium">883 130 930</a>
+                                        <span class="text-xs uppercase tracking-widest text-brand-green/50">(Piotrek)</span>
+                                        <a href="https://wa.me/48883130930" target="_blank" class="text-[#25D366] hover:text-brand-gold transition duration-300 ml-1" title="Napisz do Piotrka na WhatsApp">
+                                            <i class="fa-brands fa-whatsapp text-xl hover:scale-110 transform transition"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -220,28 +243,43 @@
 
                     <div class="lg:col-span-8">
                         <h4 class="font-bold uppercase tracking-widest text-sm text-brand-green mb-6">Wypełnij brief podróżny</h4>
-                        <form class="space-y-4">
+<form action="wyslij.php" method="POST" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" placeholder="Imię i nazwisko" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
-                                <input type="tel" placeholder="Numer telefonu" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                                <input type="text" name="imie" placeholder="Imię i nazwisko" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                                <input type="tel" name="telefon" placeholder="Numer telefonu" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
                             </div>
-                            <input type="email" placeholder="Adres e-mail" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            <input type="email" name="email" placeholder="Adres e-mail" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
                             
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <input type="text" placeholder="Kierunek (np. Egipt)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
-                                <input type="text" placeholder="Kiedy? (np. wrzesień)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
-                                <input type="text" placeholder="Ile osób? (np. 2 dorosłe)" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            <input type="text" name="kierunek" placeholder="Kierunek (np. Egipt, Turcja, obojętnie)" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex flex-col">
+                                    <label class="text-[0.65rem] uppercase tracking-widest text-brand-green/70 mb-1 ml-1">Najwcześniejszy wylot</label>
+                                    <input type="date" name="wylot_od" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label class="text-[0.65rem] uppercase tracking-widest text-brand-green/70 mb-1 ml-1">Najpóźniejszy powrót</label>
+                                    <input type="date" name="powrot_do" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <select class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
+                                <input type="number" name="dorosli" placeholder="Liczba dorosłych" min="1" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                                <input type="number" id="liczba_dzieci" name="dzieci" placeholder="Liczba dzieci (0-5)" min="0" max="5" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                            </div>
+
+                            <div id="daty_dzieci_container" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden bg-brand-light/20 p-4 border border-brand-gold/30 rounded-sm">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <select name="budzet" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
                                     <option value="" disabled selected>Budżet (na osobę)</option>
                                     <option value="do-3000">do 3 000 PLN</option>
                                     <option value="3000-5000">3 000 - 5 000 PLN</option>
                                     <option value="5000-8000">5 000 - 8 000 PLN</option>
                                     <option value="powyzej-8000">powyżej 8 000 PLN (Premium)</option>
                                 </select>
-                                <select class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
+                                <select name="dokumenty" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-500">
                                     <option value="" disabled selected>Dokumenty podróży</option>
                                     <option value="dowod">Tylko Dowód Osobisty</option>
                                     <option value="paszport">Ważny Paszport (min. 6 msc)</option>
@@ -249,9 +287,9 @@
                                 </select>
                             </div>
 
-                            <textarea placeholder="Dodatkowe życzenia (np. pokój z widokiem na morze, dieta wege, cichy hotel tylko dla dorosłych)..." rows="3" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm"></textarea>
-
-                            <button type="button" class="w-full bg-brand-green text-white py-4 mt-2 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300">Wyślij brief podróżny</button>
+                            <textarea name="wiadomosc" placeholder="Dodatkowe życzenia (np. pokój z widokiem na morze, dieta wege, cichy hotel tylko dla dorosłych)..." rows="3" class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm"></textarea>
+                            <input type="text" name="website_url" class="hidden" tabindex="-1" autocomplete="off">
+                            <button type="submit" class="w-full bg-brand-green text-white py-4 mt-2 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300">Wyślij brief podróżny</button>
                         </form>
                     </div>
                 </div>
@@ -272,6 +310,251 @@
             <i class="fa-solid fa-phone"></i> Zadzwoń
         </a>
     </div>
+
+<div id="success-modal" class="fixed inset-0 flex items-center justify-center z-[100] hidden">
+        <div class="absolute inset-0 bg-brand-green/80 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white p-8 md:p-12 rounded-sm shadow-2xl z-10 text-center max-w-sm w-full mx-4 transform transition-all scale-95 opacity-0" id="modal-content">
+            <div class="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-check text-4xl text-brand-gold"></i>
+            </div>
+            <h3 class="font-brand-title text-3xl text-brand-green mb-2">Sukces!</h3>
+            <p class="text-brand-green/70 mb-8">Twój brief podróżny został wysłany. Skontaktujemy się z Tobą najszybciej jak to możliwe.</p>
+            <button onclick="closeModal()" class="w-full bg-brand-green text-white py-4 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300 rounded-sm">
+                Zamknij
+            </button>
+        </div>
+    </div>
+
+<div id="modal-turcja" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-brand-green/90 backdrop-blur-sm transition-opacity" onclick="closeKierunek('modal-turcja')"></div>
+        <div class="relative bg-brand-light rounded-sm shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto fade-in-up">
+            <button onclick="closeKierunek('modal-turcja')" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full text-brand-green hover:text-brand-gold flex items-center justify-center shadow-md transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <img src="https://plus.unsplash.com/premium_photo-1661963652315-d5a9d26637dd?q=80&w=735&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover">
+            <div class="p-8 md:p-12">
+                <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Królowa All Inclusive</span>
+                <h3 class="font-brand-title text-4xl text-brand-green mb-4">Riwiera Turecka</h3>
+                <p class="text-brand-green/80 mb-8 leading-relaxed max-w-2xl">Luksus, który rozpieszcza. Turcja to mistrzowie gościnności, gigantyczne aquaparki dla dzieci i strefy zen tylko dla dorosłych. Idealny wybór na bezstresowy urlop na najwyższym poziomie.</p>
+                <h4 class="font-bold text-brand-green uppercase tracking-widest text-sm mb-6 border-b border-brand-gold/30 pb-2">Przykładowe hotele Premium:</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                    
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Maxx Royal Belek</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Absolutny top luksusu i perfekcyjny serwis.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Cullinan Belek</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Nowoczesny design i wybitna kuchnia światowa.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Regnum Carya</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Wybór światowych gwiazd i prezydentów.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a href="#kontakt" onclick="closeKierunek('modal-turcja')" class="inline-block bg-brand-green text-white px-8 py-4 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300 rounded-sm">Zapytaj o ten kierunek</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-egipt" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-brand-green/90 backdrop-blur-sm transition-opacity" onclick="closeKierunek('modal-egipt')"></div>
+        <div class="relative bg-brand-light rounded-sm shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto fade-in-up">
+            <button onclick="closeKierunek('modal-egipt')" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full text-brand-green hover:text-brand-gold flex items-center justify-center shadow-md transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-64 md:h-80 object-cover">
+            <div class="p-8 md:p-12">
+                <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Gwarancja Słońca</span>
+                <h3 class="font-brand-title text-4xl text-brand-green mb-4">Morze Czerwone</h3>
+                <p class="text-brand-green/80 mb-8 leading-relaxed max-w-2xl">Prywatne rafy koralowe, słońce dostępne przez cały rok i resorty o imponującej architekturze. Egipt to idealna ucieczka od zimy i raj dla miłośników nurkowania.</p>
+                <h4 class="font-bold text-brand-green uppercase tracking-widest text-sm mb-6 border-b border-brand-gold/30 pb-2">Przykładowe hotele Premium:</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Rixos Premium Magawish</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Potężna wioska luksusu w Hurghadzie.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Steigenberger Alcazar</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Elegancja i niesamowita rafa w Sharm.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Baron Palace Sahl Hasheesh</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Pałacowy rozmach i butikowe podejście.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#kontakt" onclick="closeKierunek('modal-egipt')" class="inline-block bg-brand-green text-white px-8 py-4 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300 rounded-sm">Zapytaj o ten kierunek</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-egzotyka" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-brand-green/90 backdrop-blur-sm transition-opacity" onclick="closeKierunek('modal-egzotyka')"></div>
+        <div class="relative bg-brand-light rounded-sm shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto fade-in-up">
+            <button onclick="closeKierunek('modal-egzotyka')" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full text-brand-green hover:text-brand-gold flex items-center justify-center shadow-md transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-64 md:h-80 object-cover">
+            <div class="p-8 md:p-12">
+                <span class="text-brand-green/60 uppercase tracking-widest text-xs font-bold mb-2 block">Podróże Życia</span>
+                <h3 class="font-brand-title text-4xl text-brand-green mb-4">Daleki Świat</h3>
+                <p class="text-brand-green/80 mb-8 leading-relaxed max-w-2xl">Malediwy, Seszele, Mauritius czy Dominikana. Biały, pudrowy piasek, wille na wodzie i całkowite odcięcie od problemów. Szyjemy egzotykę na miarę Twoich największych marzeń.</p>
+                <h4 class="font-bold text-brand-green uppercase tracking-widest text-sm mb-6 border-b border-brand-gold/30 pb-2">Przykładowe hotele Premium:</h4>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Soneva Jani (Malediwy)</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Wille na wodzie z prywatnymi zjeżdżalniami.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>Constance Ephelia (Seszele)</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Resort wtopiony w egzotyczną naturę i góry.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-sm shadow-md border border-brand-green/5 overflow-hidden group">
+                        <div class="w-full h-40 bg-brand-green/5 relative flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-camera text-brand-green/20 text-3xl"></i>
+                            </div>
+                        <div class="p-5">
+                            <h5 class="font-bold text-brand-green text-sm leading-tight mb-2"><i class="fa-solid fa-star text-brand-gold text-xs mr-1"></i>LUX* Le Morne (Mauritius)</h5>
+                            <p class="text-brand-green/70 text-xs leading-relaxed">Butikowy klimat u podnóża majestatycznej góry.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#kontakt" onclick="closeKierunek('modal-egzotyka')" class="inline-block bg-brand-green text-white px-8 py-4 uppercase tracking-widest text-sm font-semibold hover:bg-brand-gold transition duration-300 rounded-sm">Zapytaj o ten kierunek</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Sprawdza, czy w linku jest ?status=success
+        if (window.location.search.includes('status=success')) {
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            // Pokazuje okienko
+            modal.classList.remove('hidden');
+            
+            // Płynna animacja wjazdu
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 50);
+
+            // CZYŚCI link, żeby okienko nie wyskoczyło po odświeżeniu strony!
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            // Automatycznie zamyka okienko po 5 sekundach
+            setTimeout(closeModal, 5000);
+        }
+
+        // Funkcja zamykająca
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+<script>
+        document.getElementById('liczba_dzieci').addEventListener('input', function() {
+            // Pobieramy wpisaną liczbę dzieci (jeśli pusto, to 0)
+            let liczba = parseInt(this.value) || 0;
+            const kontener = document.getElementById('daty_dzieci_container');
+            
+            // Limitujemy do 5, żeby ktoś nie wpisał 100 i nie zepsuł strony
+            if (liczba > 5) {
+                liczba = 5;
+                this.value = 5;
+            }
+
+            // Jeśli jest przynajmniej 1 dziecko, pokazujemy okienko, jeśli 0 to chowamy
+            if (liczba > 0) {
+                kontener.classList.remove('hidden');
+                kontener.innerHTML = ''; // Czyścimy poprzednie pola
+                
+                // Pętla tworząca nowe pola dla każdego dziecka
+                for (let i = 1; i <= liczba; i++) {
+                    kontener.innerHTML += `
+                        <div class="flex flex-col fade-in-up">
+                            <label class="text-[0.65rem] uppercase tracking-widest text-brand-green mb-1 ml-1 font-semibold">Data urodzenia ${i}. dziecka</label>
+                            <input type="date" name="urodziny_dziecka_${i}" required class="w-full px-4 py-3 bg-white border border-brand-gold/50 focus:border-brand-green focus:outline-none rounded-sm transition text-sm text-gray-600 shadow-sm">
+                        </div>
+                    `;
+                }
+            } else {
+                kontener.classList.add('hidden');
+                kontener.innerHTML = '';
+            }
+        });
+
+        // Funkcje do otwierania i zamykania okienek kierunków
+        function openKierunek(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            // Zatrzymujemy scrollowanie strony pod spodem
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeKierunek(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            // Przywracamy scrollowanie
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 
 </body>
 </html>
