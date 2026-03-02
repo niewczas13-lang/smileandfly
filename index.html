@@ -267,13 +267,13 @@
                             <input type="text" name="kierunek" placeholder="Kierunek (np. Egipt, Turcja, obojętnie)" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm">
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="flex flex-col">
+                                <div class="flex flex-col min-w-0">
                                     <label class="text-[0.65rem] uppercase tracking-widest text-brand-green/70 mb-1 ml-1">Najwcześniejszy wylot</label>
-                                    <input type="date" name="wylot_od" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                                    <input type="date" name="wylot_od" required class="w-full max-w-full box-border px-3 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
                                 </div>
-                                <div class="flex flex-col">
+                                <div class="flex flex-col min-w-0">
                                     <label class="text-[0.65rem] uppercase tracking-widest text-brand-green/70 mb-1 ml-1">Najpóźniejszy powrót</label>
-                                    <input type="date" name="powrot_do" required class="w-full px-4 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
+                                    <input type="date" name="powrot_do" required class="w-full max-w-full box-border px-3 py-3 bg-brand-light/30 border border-brand-green/10 focus:border-brand-gold focus:outline-none rounded-sm transition text-sm text-gray-600">
                                 </div>
                             </div>
 
@@ -541,12 +541,12 @@
                 kontener.classList.remove('hidden');
                 kontener.innerHTML = ''; // Czyścimy poprzednie pola
                 
-                // Pętla tworząca nowe pola dla każdego dziecka
+            // Pętla tworząca nowe pola dla każdego dziecka
                 for (let i = 1; i <= liczba; i++) {
                     kontener.innerHTML += `
-                        <div class="flex flex-col fade-in-up">
+                        <div class="flex flex-col fade-in-up min-w-0">
                             <label class="text-[0.65rem] uppercase tracking-widest text-brand-green mb-1 ml-1 font-semibold">Data urodzenia ${i}. dziecka</label>
-                            <input type="date" name="urodziny_dziecka_${i}" required class="w-full px-4 py-3 bg-white border border-brand-gold/50 focus:border-brand-green focus:outline-none rounded-sm transition text-sm text-gray-600 shadow-sm">
+                            <input type="date" name="urodziny_dziecka_${i}" required class="w-full max-w-full box-border px-3 py-3 bg-white border border-brand-gold/50 focus:border-brand-green focus:outline-none rounded-sm transition text-sm text-gray-600 shadow-sm">
                         </div>
                     `;
                 }
@@ -568,6 +568,35 @@
             // Przywracamy scrollowanie
             document.body.style.overflow = 'auto';
         }
+    </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wylotInput = document.querySelector('input[name="wylot_od"]');
+            const powrotInput = document.querySelector('input[name="powrot_do"]');
+
+            // 1. Blokada wybierania dat z przeszłości
+            const dzisiaj = new Date().toISOString().split('T')[0];
+            wylotInput.min = dzisiaj;
+
+            // 2. Pilnowanie logiki powrotu po kliknięciu w kalendarz
+            wylotInput.addEventListener('change', function() {
+                powrotInput.min = this.value;
+                if (powrotInput.value && powrotInput.value < this.value) {
+                    powrotInput.value = '';
+                }
+            });
+
+            // 3. WŁASNY KOMUNIKAT BŁĘDU (Gdy ktoś wpisze datę ręcznie z klawiatury)
+            powrotInput.addEventListener('input', function() {
+                if (this.value && wylotInput.value && this.value < wylotInput.value) {
+                    // Wyrzuca ładny błąd w dymku przeglądarki
+                    this.setCustomValidity('Halo! Data powrotu nie może być wcześniejsza niż wylotu ✈️');
+                } else {
+                    // Czyści błąd, jeśli daty są już okej
+                    this.setCustomValidity(''); 
+                }
+            });
+        });
     </script>
 
 </body>
