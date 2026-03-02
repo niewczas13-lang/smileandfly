@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Smile & Fly — Wyszukaj wyjazd</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #0a0a0a;
+  --deep: #111210;
+  --card: #161714;
+  --border: rgba(255,255,255,0.08);
+  --border-gold: rgba(196,164,100,0.3);
+  --gold: #c4a464;
+  --gold-light: #d4b87a;
+  --white: #f5f2ec;
+  --muted: rgba(245,242,236,0.45);
+  --green: #2d3d2e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Jost',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+
+/* grain overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,10,10,.9),transparent);backdrop-filter:blur(2px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:2px;color:var(--white);text-decoration:none;opacity:.9}
+.nav-logo span{color:var(--gold)}
+.nav-back{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.nav-back:hover{color:var(--gold)}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1920&q=80') center/cover;filter:brightness(.35)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--black) 100%)}
+.hero-inner{position:relative;z-index:1;text-align:center;padding:0 24px}
+.hero-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,7vw,80px);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:16px;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{font-size:14px;letter-spacing:1px;color:var(--muted);margin-bottom:48px;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border:1px solid var(--border-gold);color:var(--gold);font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;background:transparent;transition:all .4s;opacity:0;animation:fadeUp .8s .8s forwards;font-family:'Jost',sans-serif}
+.hero-cta:hover{background:rgba(196,164,100,.1);border-color:var(--gold)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.5;animation:fadeIn 1s 1.2s forwards both}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+.scroll-text{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+
+/* SEARCH SECTION */
+.search-section{position:relative;z-index:10;background:var(--deep);padding:80px 0}
+.search-wrap{max-width:1000px;margin:0 auto;padding:0 32px}
+.section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--white);margin-bottom:48px;line-height:1.2}
+.section-title em{font-style:italic;color:var(--gold-light)}
+
+/* SEARCH FORM */
+.search-form{background:var(--card);border:1px solid var(--border);padding:40px}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1px}
+.form-field{background:var(--card);padding:20px 24px;display:flex;flex-direction:column;gap:6px;position:relative;transition:background .3s}
+.form-field:focus-within{background:rgba(196,164,100,.04)}
+.field-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.8}
+.field-select,.field-input{background:transparent;border:none;color:var(--white);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;outline:none;width:100%;-webkit-appearance:none;cursor:pointer}
+.field-select option{background:var(--card);color:var(--white)}
+.field-select::-ms-expand{display:none}
+
+.filters-row{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}
+.filter-label-txt{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);align-self:center;margin-right:4px}
+.f-chip{padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.f-chip:hover{border-color:var(--border-gold);color:var(--gold)}
+.f-chip.on{border-color:var(--gold);color:var(--gold);background:rgba(196,164,100,.06)}
+
+.search-btn{width:100%;padding:20px;background:var(--green);border:1px solid rgba(196,164,100,.2);color:var(--gold);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all .4s;margin-top:1px}
+.search-btn:hover{background:#3a5c3b;border-color:var(--gold)}
+.search-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* RESULTS */
+.results-section{background:var(--black);padding:80px 0;display:none}
+.results-section.visible{display:block}
+.results-wrap{max-width:1100px;margin:0 auto;padding:0 32px}
+.results-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:40px;flex-wrap:wrap;gap:12px}
+.results-count{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white)}
+.results-count span{color:var(--gold)}
+.sort-btns{display:flex;gap:16px}
+.sort-btn{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:color .3s;padding:4px 0;border-bottom:1px solid transparent}
+.sort-btn:hover,.sort-btn.on{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* HOTEL CARDS */
+.hotels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1px;background:var(--border)}
+.hotel-card{background:var(--card);cursor:pointer;transition:all .4s;overflow:hidden;animation:fadeIn .5s ease both}
+.hotel-card:hover{background:var(--deep)}
+.hotel-card:hover .card-img img{transform:scale(1.06)}
+.card-img{height:220px;overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;filter:brightness(.85)}
+.card-service{position:absolute;bottom:16px;left:16px;padding:5px 14px;background:rgba(10,10,10,.85);border:1px solid var(--border-gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.card-body{padding:24px}
+.card-dest{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:8px}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--white);margin-bottom:4px;line-height:1.2}
+.card-stars{color:var(--gold);font-size:12px;opacity:.7;margin-bottom:16px;letter-spacing:2px}
+.card-details{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.card-detail{font-size:11px;letter-spacing:1px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.card-footer{display:flex;justify-content:space-between;align-items:flex-end;padding-top:20px;border-top:1px solid var(--border)}
+.price-from{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.price-val{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--white);line-height:1}
+.price-unit{font-size:10px;color:var(--muted);margin-top:2px}
+.card-action{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.7;transition:opacity .3s}
+.hotel-card:hover .card-action{opacity:1}
+
+/* LOADER */
+.loader-wrap{display:flex;flex-direction:column;align-items:center;padding:80px;gap:20px}
+.loader-ring{width:40px;height:40px;border:1px solid var(--border-gold);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
+.loader-txt{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(5,5,5,.92);backdrop-filter:blur(12px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto}
+.overlay.open{display:flex;animation:fadeIn .3s}
+.modal{background:var(--card);border:1px solid var(--border);width:100%;max-width:820px;margin:auto;overflow:hidden;animation:fadeUp .4s}
+.modal-img{height:340px;overflow:hidden;position:relative}
+.modal-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.75)}
+.modal-close{position:absolute;top:20px;right:20px;background:rgba(10,10,10,.7);border:1px solid var(--border);color:var(--white);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .3s}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+.modal-body{padding:40px}
+.modal-dest{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:24px;color:var(--white)}
+.modal-desc{font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:28px}
+.modal-facs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.fac{padding:6px 16px;border:1px solid var(--border);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+.variants-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.variant{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border:1px solid var(--border);margin-bottom:1px;cursor:pointer;transition:all .3s;gap:16px;flex-wrap:wrap}
+.variant:hover,.variant.sel{border-color:var(--border-gold);background:rgba(196,164,100,.04)}
+.var-room{font-size:14px;font-weight:400;color:var(--white)}
+.var-info{font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.5px}
+.var-price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);font-weight:300;white-space:nowrap}
+.var-avail{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:.7;margin-top:2px;text-align:right}
+
+/* BOOKING */
+.booking-wrap{margin-top:32px;padding-top:32px;border-top:1px solid var(--border)}
+.bk-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px}
+.bk-field{background:var(--card);padding:16px 20px;display:flex;flex-direction:column;gap:6px}
+.bk-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.7}
+.bk-input{background:transparent;border:none;color:var(--white);font-family:'Jost',sans-serif;font-size:13px;font-weight:300;outline:none;width:100%}
+.bk-input::placeholder{color:var(--muted)}
+.bk-input:focus{color:var(--white)}
+.options-row{display:flex;gap:1px;background:var(--border);margin-bottom:24px}
+.opt-card{flex:1;padding:16px;background:var(--card);cursor:pointer;transition:all .3s;border:1px solid transparent}
+.opt-card:hover,.opt-card.sel{background:rgba(196,164,100,.05);border-color:var(--border-gold)}
+.opt-name{font-size:12px;color:var(--white);font-weight:400}
+.opt-price{font-size:11px;color:var(--muted);margin-top:4px}
+.bk-btn{width:100%;padding:18px;background:transparent;border:1px solid var(--border-gold);color:var(--gold);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all .4s}
+.bk-btn:hover{background:rgba(196,164,100,.08)}
+.confirmed{text-align:center;padding:48px 32px;border:1px solid var(--border-gold)}
+.conf-icon{font-size:48px;margin-bottom:16px}
+.conf-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);margin-bottom:8px}
+.conf-num{font-size:16px;color:var(--gold);letter-spacing:3px;margin:12px 0;font-family:'Cormorant Garamond',serif}
+.conf-sub{font-size:12px;color:var(--muted);line-height:1.8}
+.err-box{padding:14px 20px;border:1px solid rgba(200,80,60,.3);background:rgba(200,80,60,.05);color:rgba(255,150,130,.8);font-size:12px;margin-bottom:16px}
+
+/* EMPTY */
+.empty{text-align:center;padding:80px 24px}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:8px}
+.empty-sub{font-size:12px;color:var(--muted);letter-spacing:1px}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+@media(max-width:600px){
+  nav{padding:20px 24px}
+  .search-form{padding:24px 20px}
+  .bk-grid{grid-template-columns:1fr}
+  .modal-body{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Smile<span>&</span>Fly</a>
+  <a class="nav-back" href="https://niewczas13-lang.github.io/smileandfly/" target="_blank">← Strona główna</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Smile & Fly · Travel Concierge</p>
+    <h1 class="hero-title">Znajdź swój<br/><em>idealny wyjazd</em></h1>
+    <p class="hero-sub">Wyszukaj oferty dopasowane do Twoich oczekiwań</p>
+    <button class="hero-cta" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">
+      Przeglądaj oferty &nbsp;↓
+    </button>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section">
+  <div class="search-wrap">
+    <p class="section-label">Wyszukiwarka</p>
+    <h2 class="section-title">Dokąd chcesz<br/><em>uciec tym razem?</em></h2>
+
+    <div class="search-form">
+      <div class="form-row" id="formRow">
+        <div class="form-field">
+          <span class="field-label">Skąd lecisz</span>
+          <select class="field-select" id="dep">
+            <option value="WAW">Warszawa</option>
+            <option value="KRK">Kraków</option>
+            <option value="GDN">Gdańsk</option>
+            <option value="KTW">Katowice</option>
+            <option value="WRO">Wrocław</option>
+            <option value="POZ">Poznań</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <span class="field-label">Kierunek</span>
+          <select class="field-select" id="dest">
+            <option value="">Wszystkie</option>
+            <optgroup label="🌊 Morze Czerwone">
+              <option value="HRG">Hurghada</option>
+              <option value="SSH">Sharm el-Sheikh</option>
+              <option value="MKD">Makadi Bay</option>
+            </optgroup>
+            <optgroup label="🏛 Grecja">
+              <option value="KRF">Kreta</option>
+              <option value="RHO">Rodos</option>
+              <option value="COR">Korfu</option>
+              <option value="ZAK">Zakynthos</option>
+            </optgroup>
+            <optgroup label="🌴 Riwiera Turecka">
+              <option value="ANT">Antalya / Belek</option>
+              <option value="BOD">Bodrum</option>
+              <option value="ALD">Alanya / Side</option>
+            </optgroup>
+            <optgroup label="🌺 Egzotyka">
+              <option value="MLE">Malediwy</option>
+              <option value="MRU">Mauritius</option>
+              <option value="SEZ">Seszele</option>
+            </optgroup>
+            <optgroup label="🇪🇸 Hiszpania">
+              <option value="PMI">Majorka</option>
+              <option value="TFS">Teneryfa</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-field">
+          <span class="field-label">Data wylotu</span>
+          <input class="field-input" id="date" type="date"/>
+        </div>
+        <div class="form-field">
+          <span class="field-label">Liczba nocy</span>
+          <select class="field-select" id="nights">
+            <option value="7">7 nocy</option>
+            <option value="10">10 nocy</option>
+            <option value="14" selected>14 nocy</option>
+            <option value="21">21 nocy</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <span class="field-label">Dorośli</span>
+          <select class="field-select" id="adults">
+            <option value="1">1 osoba</option>
+            <option value="2" selected>2 osoby</option>
+            <option value="3">3 osoby</option>
+            <option value="4">4 osoby</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <span class="filter-label-txt">Wyżywienie:</span>
+        <button class="f-chip" onclick="toggleChip(this,'svc','UAI')">Ultra All Inc.</button>
+        <button class="f-chip" onclick="toggleChip(this,'svc','AI')">All Inclusive</button>
+        <button class="f-chip" onclick="toggleChip(this,'svc','FB')">Pełne wyżywienie</button>
+        <button class="f-chip" onclick="toggleChip(this,'svc','HB')">Półpensjonat</button>
+        &nbsp;
+        <span class="filter-label-txt">Standard:</span>
+        <button class="f-chip" onclick="toggleChip(this,'cat','5')">★★★★★</button>
+        <button class="f-chip" onclick="toggleChip(this,'cat','4')">★★★★</button>
+      </div>
+
+      <button class="search-btn" id="searchBtn" onclick="doSearch()">
+        Wyszukaj oferty premium
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-section" id="resultsSection">
+  <div class="results-wrap">
+    <div id="resultsInner"></div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="maybeClose(event)">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// ── state ──────────────────────────────
+const filters = {svc: null, cat: null};
+let results = [];
+let bookingForm = null;
+let selVariant = null;
+
+// default date = 30 days
+const d = new Date(); d.setDate(d.getDate()+30);
+document.getElementById('date').value = d.toISOString().split('T')[0];
+
+// ── chips ──────────────────────────────
+function toggleChip(el, type, val){
+  if(filters[type]===val){ filters[type]=null; el.classList.remove('on'); }
+  else{
+    document.querySelectorAll(`[onclick*="'${type}'"]`).forEach(c=>c.classList.remove('on'));
+    filters[type]=val; el.classList.add('on');
+  }
+}
+
+// ── mock data ──────────────────────────
+const DEST_NAMES = {HRG:'Hurghada',SSH:'Sharm el-Sheikh',MKD:'Makadi Bay',KRF:'Kreta',RHO:'Rodos',COR:'Korfu',ZAK:'Zakynthos',ANT:'Antalya',BOD:'Bodrum',ALD:'Alanya',MLE:'Malediwy',MRU:'Mauritius',SEZ:'Seszele',PMI:'Majorka',TFS:'Teneryfa'};
+const DEP_NAMES = {WAW:'Warszawa',KRK:'Kraków',GDN:'Gdańsk',KTW:'Katowice',WRO:'Wrocław',POZ:'Poznań'};
+const SVC = {AI:'All Inclusive',UAI:'Ultra All Inclusive',FB:'Pełne wyżywienie',HB:'Półpensjonat',BB:'Śniadania'};
+const PHOTOS = ['photo-1499793983690-e29da59ef1c2','photo-1570799088236-903069fde316','photo-1572252009286-268acec5ca0a','photo-1506929562872-bb421503ef21','photo-1582719478250-c89cae4dc85b','photo-1520250497591-112f2f40a3f4','photo-1615880484746-a134be9a6ecf','photo-1437719417032-8595fd9e9dc6','photo-1571896349842-33c89424de2d','photo-1551882547-ff40c63fe5fa'];
+const HOTELS = ['Maxx Royal Belek','Cullinan Belek','Rixos Premium','Grand Hyatt','Kempinski Palace','Baron Palace','Steigenberger','Sunrise Grand Select','Regnum Carya','Constance Belle Mare'];
+const DESCS = ['Absolutny szczyt luksusu na Riwierze Tureckiej. Prywatne plaże, restauracje à la carte prowadzone przez gwiazdy Michelin i serwis, który wyprzedza każde życzenie gościa.','Pałacowy resort bezpośrednio na linii brzegowej Morza Czerwonego. Prywatna rafa koralowa, nieskończone baseny i elegancja, którą czuć w każdym detalu.','Butikowa perła wśród kurortów śródziemnomorskich. Kameralna atmosfera, widoki na zatokę i kuchnia celebrująca lokalne smaki.'];
+const FACS = [['Prywatna plaża','6 basenów infinity','SPA Sisley Paris','Restauracje à la carte','Klub dla dzieci','Transfer VIP'],['Rafa koralowa','Concierge 24h','Butik & Spa','Tenis i sporty wodne','Pokoje z jacuzzi','WiFi 1 Gb/s'],['Widok na morze','Basen panoramiczny','Fine dining','Animacje Premium','Strefa Adults Only','Airport transfer']];
+const ROOMS = ['Ocean Suite','Deluxe Sea View','Premier Suite','Junior Suite','Family Deluxe','Pool Villa'];
+
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function rc(arr){return arr[ri(0,arr.length-1)]}
+function fmtDate(s){return new Date(s).toLocaleDateString('pl-PL',{day:'numeric',month:'short',year:'numeric'})}
+function fmtPrice(n){return n.toLocaleString('pl-PL')}
+function starsHtml(n){return '✦'.repeat(n)+'✧'.repeat(5-n)}
+
+function genHotels(params){
+  const dest = params.dest || rc(Object.keys(DEST_NAMES));
+  const depName = DEP_NAMES[params.dep||'WAW']||'Warszawa';
+  const adults = params.adults||2;
+  const nights = params.nights||14;
+  const svcFilter = filters.svc;
+  const catFilter = filters.cat ? parseInt(filters.cat) : null;
+  const hotels = [];
+  for(let i=0;i<14;i++){
+    const cat = catFilter || rc([4,4,5,5,5]);
+    const svcCode = svcFilter || rc(['AI','UAI','UAI','AI','FB']);
+    const base = ri(3800,9500)*adults;
+    const xcode = 'X'+ri(10000,99999);
+    const photoSeed = PHOTOS[i%PHOTOS.length];
+    hotels.push({
+      id:'OFF-'+Date.now()+'-'+ri(1000,9999),
+      xcode, dest: DEST_NAMES[dest]||dest, depName,
+      name: HOTELS[i%HOTELS.length]+' '+rc(['Resort','Hotel & Spa','Palace','Grand Resort']),
+      cat, svcCode, svcName: SVC[svcCode]||svcCode,
+      nights, adults, startDate: params.date||d.toISOString().split('T')[0],
+      price: base, perPerson: Math.round(base/adults),
+      photo: `https://images.unsplash.com/${photoSeed}?w=800&q=75&fit=crop`,
+      desc: DESCS[i%DESCS.length],
+      facs: FACS[i%FACS.length],
+      review: (3.8+Math.random()*1.1).toFixed(1)
+    });
+  }
+  if(svcFilter) return hotels.filter(h=>h.svcCode===svcFilter);
+  if(catFilter) return hotels.filter(h=>h.cat===catFilter);
+  return hotels;
+}
+
+function genVariants(hotel){
+  return ROOMS.slice(0,ri(3,6)).map((r,i)=>({
+    room:r, svcName:hotel.svcName, nights:hotel.nights,
+    date:hotel.startDate,
+    price: hotel.price + ri(-800,1200),
+    avail: Math.random()>.15
+  }));
+}
+
+// ── search ─────────────────────────────
+function doSearch(){
+  const btn = document.getElementById('searchBtn');
+  btn.disabled=true; btn.textContent='Przeukuję oferty...';
+  document.getElementById('resultsSection').classList.remove('visible');
+
+  setTimeout(()=>{
+    const params = {
+      dest: document.getElementById('dest').value,
+      dep: document.getElementById('dep').value,
+      date: document.getElementById('date').value,
+      nights: parseInt(document.getElementById('nights').value),
+      adults: parseInt(document.getElementById('adults').value),
+    };
+    results = genHotels(params);
+    renderResults();
+    btn.disabled=false; btn.textContent='Wyszukaj oferty premium';
+    document.getElementById('resultsSection').scrollIntoView({behavior:'smooth',block:'start'});
+  }, 900);
+}
+
+function renderResults(){
+  const sec = document.getElementById('resultsSection');
+  sec.classList.add('visible');
+  const inn = document.getElementById('resultsInner');
+
+  if(!results.length){
+    inn.innerHTML=`<div class="empty"><div class="empty-title">Brak wyników</div><div class="empty-sub">Zmień kryteria wyszukiwania</div></div>`;
+    return;
+  }
+
+  let html = `<div class="results-meta">
+    <div class="results-count">Znaleziono <span>${results.length}</span> ofert</div>
+    <div class="sort-btns">
+      <button class="sort-btn on" onclick="sortBy('price',this)">Cena ↑</button>
+      <button class="sort-btn" onclick="sortBy('cat',this)">Standard ↑</button>
+    </div>
+  </div>
+  <div class="hotels-grid" id="grid">`;
+
+  results.forEach((h,i)=>{
+    html+=`<div class="hotel-card" onclick="openModal(${i})" style="animation-delay:${(i%6)*.06}s">
+      <div class="card-img"><img src="${h.photo}" alt="${h.name}" loading="lazy"/><div class="card-service">${h.svcName}</div></div>
+      <div class="card-body">
+        <div class="card-dest">📍 ${h.dest} · ${h.depName}</div>
+        <div class="card-name">${h.name}</div>
+        <div class="card-stars">${starsHtml(h.cat)}</div>
+        <div class="card-details">
+          <span class="card-detail">✈ ${h.depName}</span>
+          <span class="card-detail">◇ ${h.nights} nocy</span>
+          <span class="card-detail">○ ${fmtDate(h.startDate)}</span>
+        </div>
+        <div class="card-footer">
+          <div><div class="price-from">od osoby</div><div class="price-val">${fmtPrice(h.perPerson)} <small style="font-size:14px;opacity:.6">PLN</small></div><div class="price-unit">dla ${h.adults} os. łącznie ${fmtPrice(h.price)} PLN</div></div>
+          <div class="card-action">Szczegóły →</div>
+        </div>
+      </div>
+    </div>`;
+  });
+  html+='</div>';
+  inn.innerHTML=html;
+}
+
+function sortBy(field, btn){
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(field==='price') results.sort((a,b)=>a.price-b.price);
+  else results.sort((a,b)=>b.cat-a.cat);
+  document.getElementById('grid').innerHTML='';
+  results.forEach((h,i)=>{
+    const div=document.createElement('div');
+    div.innerHTML=`<div class="hotel-card" onclick="openModal(${i})" style="animation-delay:${(i%6)*.06}s">
+      <div class="card-img"><img src="${h.photo}" alt="${h.name}" loading="lazy"/><div class="card-service">${h.svcName}</div></div>
+      <div class="card-body">
+        <div class="card-dest">📍 ${h.dest} · ${h.depName}</div>
+        <div class="card-name">${h.name}</div>
+        <div class="card-stars">${starsHtml(h.cat)}</div>
+        <div class="card-details">
+          <span class="card-detail">✈ ${h.depName}</span>
+          <span class="card-detail">◇ ${h.nights} nocy</span>
+        </div>
+        <div class="card-footer">
+          <div><div class="price-from">od osoby</div><div class="price-val">${fmtPrice(h.perPerson)} <small style="font-size:14px;opacity:.6">PLN</small></div></div>
+          <div class="card-action">Szczegóły →</div>
+        </div>
+      </div>
+    </div>`;
+    document.getElementById('grid').appendChild(div.firstChild);
+  });
+}
+
+// ── modal ──────────────────────────────
+function openModal(idx){
+  const h = results[idx];
+  const vars = genVariants(h);
+  selVariant=null; bookingForm=null;
+
+  document.getElementById('modal').innerHTML=`
+    <div class="modal-img">
+      <img src="${h.photo}" alt="${h.name}"/>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-dest">${h.dest} · ${starsHtml(h.cat)}</div>
+      <div class="modal-name">${h.name}</div>
+      <p class="modal-desc">${h.desc}</p>
+      <div class="modal-facs">${h.facs.map(f=>`<span class="fac">${f}</span>`).join('')}</div>
+      <div class="variants-title">Dostępne warianty</div>
+      <div id="varsList">
+        ${vars.map((v,i)=>`
+          <div class="variant" id="vr${i}" onclick="selectVar(${idx},${i})">
+            <div><div class="var-room">${v.room}</div><div class="var-info">${v.svcName} · ${v.nights} nocy · ${fmtDate(v.date)}</div></div>
+            <div style="text-align:right"><div class="var-price">${fmtPrice(v.price)} PLN</div><div class="var-avail">${v.avail?'Dostępna':'Brak miejsc'}</div></div>
+          </div>`).join('')}
+      </div>
+      <div id="bookArea"></div>
+    </div>`;
+
+  // store variants
+  document.getElementById('modal')._vars = vars;
+  document.getElementById('modal')._hotel = h;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function selectVar(hotelIdx, varIdx){
+  document.querySelectorAll('.variant').forEach(v=>v.classList.remove('sel'));
+  document.getElementById('vr'+varIdx).classList.add('sel');
+  selVariant = document.getElementById('modal')._vars[varIdx];
+  const h = document.getElementById('modal')._hotel;
+  document.getElementById('bookArea').innerHTML=`
+    <div style="margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button style="padding:14px 32px;border:1px solid rgba(196,164,100,.4);background:transparent;color:var(--gold);font-family:Jost,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s" onmouseover="this.style.background='rgba(196,164,100,.08)'" onmouseout="this.style.background='transparent'" onclick="showBooking()">Zarezerwuj →</button>
+      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:${selVariant.avail?'rgba(100,200,120,.7)':'rgba(200,80,60,.7)'}">${selVariant.avail?'✓ Dostępna':'✗ Brak miejsc'}</span>
+    </div>`;
+}
+
+function showBooking(){
+  const h = document.getElementById('modal')._hotel;
+  const ins=[{code:'INS_BASIC',name:'Ubezpieczenie podstawowe',price:89},{code:'INS_PLUS',name:'Ubezpieczenie rozszerzone',price:149},{code:'INS_PREM',name:'Ubezpieczenie premium',price:249}];
+  const trans=[{code:'T_NO',name:'Bez transferu',price:0},{code:'T_SHARE',name:'Transfer dzielony',price:59},{code:'T_PRIV',name:'Transfer prywatny',price:199}];
+
+  document.getElementById('bookArea').innerHTML=`
+    <div class="booking-wrap">
+      <div class="bk-title">Formularz rezerwacji</div>
+      <div style="padding:12px 16px;border:1px solid var(--border-gold);margin-bottom:20px;font-size:12px;color:var(--muted)">
+        Cena bazowa: <span style="color:var(--white)">${fmtPrice(selVariant.price)} PLN</span> · Ważna przez 15 min
+      </div>
+      <div class="bk-grid">
+        <div class="bk-field"><div class="bk-label">Imię *</div><input class="bk-input" id="fn" placeholder="np. Anna"/></div>
+        <div class="bk-field"><div class="bk-label">Nazwisko *</div><input class="bk-input" id="ln" placeholder="np. Kowalska"/></div>
+        <div class="bk-field"><div class="bk-label">Data urodzenia</div><input class="bk-input" id="bd" type="date"/></div>
+        <div class="bk-field"><div class="bk-label">Nr paszportu</div><input class="bk-input" id="pp" placeholder="AB 123456"/></div>
+        <div class="bk-field"><div class="bk-label">E-mail *</div><input class="bk-input" id="em" type="email" placeholder="anna@example.com"/></div>
+        <div class="bk-field"><div class="bk-label">Telefon *</div><input class="bk-input" id="ph" type="tel" placeholder="+48 000 000 000"/></div>
+      </div>
+      <div class="bk-title" style="margin-bottom:12px">Ubezpieczenie</div>
+      <div class="options-row" id="insRow">
+        ${ins.map(i=>`<div class="opt-card" data-type="ins" data-code="${i.code}" data-price="${i.price}" onclick="selectOpt(this)"><div class="opt-name">${i.name}</div><div class="opt-price">+${i.price} PLN/os.</div></div>`).join('')}
+      </div>
+      <div class="bk-title" style="margin-bottom:12px">Transfer</div>
+      <div class="options-row" id="transRow">
+        ${trans.map(t=>`<div class="opt-card" data-type="trans" data-code="${t.code}" data-price="${t.price}" onclick="selectOpt(this)"><div class="opt-name">${t.name}</div><div class="opt-price">${t.price?'+'+t.price+' PLN':'Bezpłatny'}</div></div>`).join('')}
+      </div>
+      <div id="bkErr"></div>
+      <button class="bk-btn" onclick="submitBooking()">Potwierdź rezerwację</button>
+    </div>`;
+}
+
+function selectOpt(el){
+  document.querySelectorAll(`[data-type="${el.dataset.type}"]`).forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function submitBooking(){
+  const fn=document.getElementById('fn')?.value.trim();
+  const ln=document.getElementById('ln')?.value.trim();
+  const em=document.getElementById('em')?.value.trim();
+  const ph=document.getElementById('ph')?.value.trim();
+  if(!fn||!ln||!em||!ph){
+    document.getElementById('bkErr').innerHTML=`<div class="err-box">Uzupełnij wymagane pola: imię, nazwisko, e-mail, telefon</div>`;
+    return;
+  }
+  document.getElementById('bkErr').innerHTML='';
+  document.getElementById('bookArea').innerHTML=`<div style="padding:40px;text-align:center"><div class="loader-ring" style="margin:0 auto 16px"></div><div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)">Potwierdzam rezerwację...</div></div>`;
+  setTimeout(()=>{
+    const num='SF-'+Date.now().toString().slice(-6);
+    document.getElementById('bookArea').innerHTML=`
+      <div class="confirmed">
+        <div class="conf-icon">✈</div>
+        <div class="conf-title">Rezerwacja potwierdzona</div>
+        <div class="conf-num">${num}</div>
+        <div class="conf-sub">Potwierdzenie zostało wysłane na <strong>${em}</strong><br/>Edyta lub Piotrek skontaktują się z Tobą w ciągu 24h.<br/><br/><em style="opacity:.5;font-size:11px">(To jest wersja demo — nie pobrano żadnych środków)</em></div>
+      </div>`;
+  },1400);
+}
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function maybeClose(e){if(e.target===document.getElementById('overlay'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
